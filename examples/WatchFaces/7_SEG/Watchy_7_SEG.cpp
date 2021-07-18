@@ -27,23 +27,28 @@ void Watchy7SEG::drawWatchFace(){
 void Watchy7SEG::drawTime(){
     display.setFont(&DSEG7_Classic_Bold_53);
     display.setCursor(5, 53+5);
-    if(currentTime.Hour < 10){
-    	display.print("0");
-    	display.print(currentTime.Hour);
+    uint8_t hour24 = currentTime.Hour;
+    uint8_t hour12 = hour24 - 12;
+    
+    if(hour24 < 10){
+    	display.print(" ");
+    	display.print(hour24);
     }
-    else if(currentTime.Hour >9 && <13){
-    	display.print(currentTime.Hour);
+    else if(hour24 > 9 && hour24 < 13){
+    	display.print(hour24);
     }
-    else if(currentTime.Hour >12 && <24){
-    	uint8_t hour12;
-    	hour12 = (currentTime.Hour - 12);
+    else if(hour24 > 12 && hour24 <= 23 && hour12 < 10){
+    	display.print(" ");
     	display.print(hour12);
     }
-    else if(currentTime.Hour >23){
+    else if(hour24 > 12 && hour24 <= 23 && hour12 > 9){
+    	display.print(hour12);
+    }
+    else if(hour24 == 24){
 	display.print("12");
     }
     else {
-    	display.print("ERR");
+    	display.print("XX");
     }
     	
 
