@@ -27,10 +27,31 @@ void Watchy7SEG::drawWatchFace(){
 void Watchy7SEG::drawTime(){
     display.setFont(&DSEG7_Classic_Bold_53);
     display.setCursor(5, 53+5);
-    if(currentTime.Hour < 10){
-        display.print("0");
+    uint8_t hour24 = currentTime.Hour;
+    uint8_t hour12 = hour24 - 12;
+    
+    if(hour24 < 10){
+    	display.print(" ");
+    	display.print(hour24);
     }
-    display.print(currentTime.Hour);
+    else if(hour24 > 9 && hour24 < 13){
+    	display.print(hour24);
+    }
+    else if(hour24 > 12 && hour24 <= 23 && hour12 < 10){
+    	display.print(" ");
+    	display.print(hour12);
+    }
+    else if(hour24 > 12 && hour24 <= 23 && hour12 > 9){
+    	display.print(hour12);
+    }
+    else if(hour24 == 24){
+	display.print("12");
+    }
+    else {
+    	display.print("XX");
+    }
+    	
+
     display.print(":");
     if(currentTime.Minute < 10){
         display.print("0");
@@ -57,11 +78,11 @@ void Watchy7SEG::drawDate(){
     display.setFont(&DSEG7_Classic_Bold_25);
     display.setCursor(5, 120);
     if(currentTime.Day < 10){
-    display.print("0");      
+    display.print(" ");      
     }     
     display.println(currentTime.Day);
-    display.setCursor(5, 150);
-    display.println(currentTime.Year + YEAR_OFFSET);// offset from 1970, since year is stored in uint8_t
+//    display.setCursor(5, 150);
+//    display.println(currentTime.Year + YEAR_OFFSET);// offset from 1970, since year is stored in uint8_t
 }
 void Watchy7SEG::drawSteps(){
     uint32_t stepCount = sensor.getCounter();
@@ -96,16 +117,16 @@ void Watchy7SEG::drawWeather(){
 
     weatherData currentWeather = getWeatherData();
 
-    int8_t temperature = currentWeather.temperature;
+    int8_t temperature = currentWeather.temperature * 1.8 + 32;
     int16_t weatherConditionCode = currentWeather.weatherConditionCode;   
 
     display.setFont(&DSEG7_Classic_Regular_39);
     int16_t  x1, y1;
     uint16_t w, h;
     display.getTextBounds(String(temperature), 100, 150, &x1, &y1, &w, &h);
-    display.setCursor(155 - w, 150);
+    display.setCursor(155 - w, 155);
     display.println(temperature);
-    display.drawBitmap(165, 110, strcmp(TEMP_UNIT, "metric") == 0 ? celsius : fahrenheit, 26, 20, DARKMODE ? GxEPD_WHITE : GxEPD_BLACK);
+    display.drawBitmap(165, 110, strcmp(TEMP_UNIT, "imperial") == 0 ? celsius : fahrenheit, 26, 20, DARKMODE ? GxEPD_WHITE : GxEPD_BLACK);
     const unsigned char* weatherIcon;
 
     //https://openweathermap.org/weather-conditions
