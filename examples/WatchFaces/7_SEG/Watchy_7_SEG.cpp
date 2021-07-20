@@ -31,14 +31,14 @@ void Watchy7SEG::drawTime(){
     uint8_t hour12 = hour24 - 12;
     
     if(hour24 < 10){
-    	display.print(" ");
+    	display.print("  ");
     	display.print(hour24);
     }
     else if(hour24 > 9 && hour24 < 13){
     	display.print(hour24);
     }
     else if(hour24 > 12 && hour24 <= 23 && hour12 < 10){
-    	display.print(" ");
+    	display.print("  ");
     	display.print(hour12);
     }
     else if(hour24 > 12 && hour24 <= 23 && hour12 > 9){
@@ -85,6 +85,9 @@ void Watchy7SEG::drawDate(){
 //    display.println(currentTime.Year + YEAR_OFFSET);// offset from 1970, since year is stored in uint8_t
 }
 void Watchy7SEG::drawSteps(){
+    if(currentTime.Hour == 24 && currentTime.Minute == 00){
+    	sensor.resetStepCounter();
+    }
     uint32_t stepCount = sensor.getCounter();
     display.drawBitmap(10, 165, steps, 19, 23, DARKMODE ? GxEPD_WHITE : GxEPD_BLACK);
     display.setCursor(35, 190);
