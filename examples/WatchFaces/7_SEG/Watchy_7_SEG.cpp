@@ -85,7 +85,7 @@ void Watchy7SEG::drawDate(){
 //    display.println(currentTime.Year + YEAR_OFFSET);// offset from 1970, since year is stored in uint8_t
 }
 void Watchy7SEG::drawSteps(){
-    if(currentTime.Hour == 24 && currentTime.Minute == 00){
+    if(currentTime.Hour == 23 && currentTime.Minute == 59){
     	sensor.resetStepCounter();
     }
     uint32_t stepCount = sensor.getCounter();
