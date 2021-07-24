@@ -30,27 +30,23 @@ void Watchy7SEG::drawTime(){
     uint8_t hour24 = currentTime.Hour;
     uint8_t hour12 = hour24 - 12;
     
-    if(hour24 < 10){
+    if(hour24 > 0 && hour24 < 10){
     	display.print("  ");
     	display.print(hour24);
     }
     else if(hour24 > 9 && hour24 < 13){
     	display.print(hour24);
     }
-    else if(hour24 > 12 && hour24 <= 23 && hour12 < 10){
+    else if(hour24 > 12 && hour12 < 10){
     	display.print("  ");
     	display.print(hour12);
     }
-    else if(hour24 > 12 && hour24 <= 23 && hour12 > 9){
+    else if(hour24 > 12 && hour12 > 9){
     	display.print(hour12);
     }
-    else if(hour24 == 24){
-	display.print("12");
-    }
     else {
-    	display.print("XX");
-    }
-    	
+	display.print("12");
+    }	
 
     display.print(":");
     if(currentTime.Minute < 10){
