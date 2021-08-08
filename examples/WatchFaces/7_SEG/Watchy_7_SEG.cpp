@@ -94,13 +94,13 @@ void Watchy7SEG::drawBattery(){
     display.fillRect(159, 78, 27, BATTERY_SEGMENT_HEIGHT, DARKMODE ? GxEPD_BLACK : GxEPD_WHITE);//clear battery segments
     int8_t batteryLevel = 0;
     float VBAT = getBatteryVoltage();
-    if(VBAT > 4.1){
+    if(VBAT > 4.0){
         batteryLevel = 3;
     }
-    else if(VBAT > 3.95 && VBAT <= 4.1){
+    else if(VBAT > 3.90 && VBAT <= 4.0){
         batteryLevel = 2;
     }
-    else if(VBAT > 3.80 && VBAT <= 3.95){
+    else if(VBAT > 3.80 && VBAT <= 3.90){
         batteryLevel = 1;
     }    
     else if(VBAT <= 3.80){
