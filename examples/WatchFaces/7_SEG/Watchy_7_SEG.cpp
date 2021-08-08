@@ -64,6 +64,10 @@ void Watchy7SEG::drawDate(){
     display.println(currentTime.Year + YEAR_OFFSET);// offset from 1970, since year is stored in uint8_t
 }
 void Watchy7SEG::drawSteps(){
+    // reset step counter at midnight
+    if (currentTime.Hour == 0 && currentTime.Minute == 0){
+      sensor.resetStepCounter();
+    }
     uint32_t stepCount = sensor.getCounter();
     display.drawBitmap(10, 165, steps, 19, 23, DARKMODE ? GxEPD_WHITE : GxEPD_BLACK);
     display.setCursor(35, 190);
@@ -102,8 +106,14 @@ void Watchy7SEG::drawWeather(){
     display.setFont(&DSEG7_Classic_Regular_39);
     int16_t  x1, y1;
     uint16_t w, h;
-    display.getTextBounds(String(temperature), 100, 150, &x1, &y1, &w, &h);
-    display.setCursor(155 - w, 150);
+    display.getTextBounds(String(temperature), 0, 0, &x1, &y1, &w, &h);
+    if(159 - w - x1 > 87){
+        display.setCursor(159 - w - x1, 150);
+    }else{
+        display.setFont(&DSEG7_Classic_Bold_25);
+        display.getTextBounds(String(temperature), 0, 0, &x1, &y1, &w, &h);
+        display.setCursor(159 - w - x1, 136);
+    }
     display.println(temperature);
     display.drawBitmap(165, 110, strcmp(TEMP_UNIT, "metric") == 0 ? celsius : fahrenheit, 26, 20, DARKMODE ? GxEPD_WHITE : GxEPD_BLACK);
     const unsigned char* weatherIcon;
