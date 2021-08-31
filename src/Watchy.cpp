@@ -270,7 +270,7 @@ void Watchy::showMenu(byte menuIndex, bool partialRefresh){
     uint16_t w, h;
     int16_t yPos;
 
-    const char *menuItems[] = {"Check Battery", "Reset ESP", "Vibrate Motor", "Show Accelerometer", "Set Time", "Setup WiFi", "Update Firmware"};
+    const char *menuItems[] = {"Check Battery", "Reboot Watch", "Vibrate Motor", "Show Accelerometer", "Set Time", "Setup WiFi", "Update Firmware"};
     for(int i=0; i<MENU_LENGTH; i++){
     yPos = 30+(MENU_HEIGHT*i);
     display.setCursor(0, yPos);
@@ -300,7 +300,7 @@ void Watchy::showFastMenu(byte menuIndex){
     uint16_t w, h;
     int16_t yPos;
 
-    const char *menuItems[] = {"Check Battery", "Reset ESP", "Vibrate Motor", "Show Accelerometer", "Set Time", "Setup WiFi", "Update Firmware"};
+    const char *menuItems[] = {"Check Battery", "Reboot Watch", "Vibrate Motor", "Show Accelerometer", "Set Time", "Setup WiFi", "Update Firmware"};
     for(int i=0; i<MENU_LENGTH; i++){
     yPos = 30+(MENU_HEIGHT*i);
     display.setCursor(0, yPos);
@@ -344,8 +344,10 @@ void Watchy::resetESP(){
     display.fillScreen(GxEPD_BLACK);
     display.setFont(&FreeMonoBold9pt7b);
     display.setTextColor(GxEPD_WHITE);
-    display.setCursor(70, 80);
-    display.println("Restarting in 5 sec");
+    display.setCursor(20, 70);
+    display.println("Reboot in 5 sec");
+    display.display(false); //full refresh
+    display.hibernate();
     delay(5000);
     ESP.restart();  
 }
