@@ -35,6 +35,7 @@ class Watchy {
         void showMenu(byte menuIndex, bool partialRefresh);
         void showFastMenu(byte menuIndex);
         void showBattery();
+        void resetESP();
         void showBuzz();
         void showAccelerometer();
         void showUpdateFW();
