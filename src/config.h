@@ -29,8 +29,8 @@
 #define COUNTRY_CODE "US"
 #define OPENWEATHERMAP_APIKEY "f058fe1cad2afe8e2ddc5d063a64cecb" //use your own API key :)
 #define OPENWEATHERMAP_URL "http://api.openweathermap.org/data/2.5/weather?q="
-#define TEMP_UNIT "metric" //use "imperial" for Fahrenheit"
-#define WEATHER_UPDATE_INTERVAL 30 //minutes
+#define TEMP_UNIT "imperial" //use "imperial" for Fahrenheit
+#define WEATHER_UPDATE_INTERVAL 5 //minutes
 //wifi
 #define WIFI_AP_TIMEOUT 60
 #define WIFI_AP_SSID "Watchy AP"
