@@ -123,19 +123,22 @@ void Watchy::handleButtonPress(){
         case 0:
           showBattery();
           break;
-        case 1:
+  	case 1:
+          resetESP();
+          break;
+        case 2:
           showBuzz();
           break;          
-        case 2:
+        case 3:
           showAccelerometer();
           break;
-        case 3:
+        case 4:
           setTime();
           break;
-        case 4:
+        case 5:
           setupWifi();
           break;                    
-        case 5:
+        case 6:
           showUpdateFW();
           break;
         default:
@@ -198,18 +201,21 @@ void Watchy::handleButtonPress(){
                     showBattery();
                     break;
                     case 1:
+         	    resetESP();
+         	    break;
+                    case 2:
                     showBuzz();
                     break;          
-                    case 2:
+                    case 3:
                     showAccelerometer();
                     break;
-                    case 3:
+                    case 4:
                     setTime();
                     break;
-                    case 4:
+                    case 5:
                     setupWifi();
                     break;                    
-                    case 5:
+                    case 6:
                     showUpdateFW();
                     break;
                     default:
@@ -264,7 +270,7 @@ void Watchy::showMenu(byte menuIndex, bool partialRefresh){
     uint16_t w, h;
     int16_t yPos;
 
-    const char *menuItems[] = {"Check Battery", "Vibrate Motor", "Show Accelerometer", "Set Time", "Setup WiFi", "Update Firmware"};
+    const char *menuItems[] = {"Check Battery", "Reboot Watch", "Vibrate Motor", "Show Accelerometer", "Set Time", "Setup WiFi", "Update Firmware"};
     for(int i=0; i<MENU_LENGTH; i++){
     yPos = 30+(MENU_HEIGHT*i);
     display.setCursor(0, yPos);
@@ -294,7 +300,7 @@ void Watchy::showFastMenu(byte menuIndex){
     uint16_t w, h;
     int16_t yPos;
 
-    const char *menuItems[] = {"Check Battery", "Vibrate Motor", "Show Accelerometer", "Set Time", "Setup WiFi", "Update Firmware"};
+    const char *menuItems[] = {"Check Battery", "Reboot Watch", "Vibrate Motor", "Show Accelerometer", "Set Time", "Setup WiFi", "Update Firmware"};
     for(int i=0; i<MENU_LENGTH; i++){
     yPos = 30+(MENU_HEIGHT*i);
     display.setCursor(0, yPos);
@@ -330,6 +336,20 @@ void Watchy::showBattery(){
     display.hibernate();
 
     guiState = APP_STATE;      
+}
+
+void Watchy::resetESP(){
+    display.init(0, false); //_initial_refresh to false to prevent full update on init
+    display.setFullWindow();
+    display.fillScreen(GxEPD_BLACK);
+    display.setFont(&FreeMonoBold9pt7b);
+    display.setTextColor(GxEPD_WHITE);
+    display.setCursor(20, 70);
+    display.println("Reboot in 5 sec");
+    display.display(false); //full refresh
+    display.hibernate();
+    delay(5000);
+    ESP.restart();  
 }
 
 void Watchy::showBuzz(){
