@@ -126,6 +126,9 @@ void Watchy7SEG::drawWeather(){
     if(temperature > 99){
     	display.setCursor(138 - w, 155);
     }
+    if(temperature > 9 && temperature < 20){
+    	display.setCursor(136 - w, 155);
+    }
     else if(temperature <=99){
 	display.setCursor(155 - w, 155);
     }
