@@ -27,7 +27,7 @@
 //weather api
 #define CITY_NAME "ARVADA" //if your city name has a space, replace with '+'
 #define COUNTRY_CODE "US"
-#define OPENWEATHERMAP_APIKEY "c578cc6f04bbe88c9ee091dacfba71e8" //use your own API key :)
+#define OPENWEATHERMAP_APIKEY "f058fe1cad2afe8e2ddc5d063a64cecb" //use your own API key :)
 #define OPENWEATHERMAP_URL "http://api.openweathermap.org/data/2.5/weather?q="
 #define TEMP_UNIT "imperial" //use "imperial" for Fahrenheit
 #define WEATHER_UPDATE_INTERVAL 5 //minutes
@@ -47,8 +47,7 @@
 #define SET_YEAR 2
 #define SET_MONTH 3
 #define SET_DAY 4
-#define YEAR_OFFSET 2000
-#define HOUR_12_24 12
+#define YEAR_OFFSET 1970
 //BLE OTA
 #define BLE_DEVICE_NAME "Watchy BLE OTA"
 #define WATCHFACE_NAME "Watchy 7 Segment"
